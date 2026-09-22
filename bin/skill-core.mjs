@@ -218,7 +218,7 @@ async function cmdInit(flags, positional) {
 
   if (!fs.existsSync(TEMPLATE_DIR)) {
     console.error(c(C.red, `✗ 脚手架模板缺失：${TEMPLATE_DIR}`));
-    console.error('  请重新安装：npm install @fmode/skill-core-guide@latest');
+    console.error('  请重新安装：npm install skill-core-guide@latest');
     process.exit(2);
   }
 
@@ -234,7 +234,7 @@ async function cmdInit(flags, positional) {
     skillName,
     cliName,
     displayName: flags.display || skillName,
-    summary: flags.summary || `${skillName} —— 由 @fmode/skill-core-guide 脚手架生成`,
+    summary: flags.summary || `${skillName} —— 由 skill-core-guide 脚手架生成`,
   });
 
   const rel = written.map((f) => path.relative(abs, f)).sort();

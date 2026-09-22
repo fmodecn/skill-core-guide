@@ -1,11 +1,17 @@
 ---
 slug: fmode-skill-core-guide
 displayName: skill-core-guide
-version: 0.1.0
-summary: Fmode Harness 平台母技能标准指南 —— 平台端点真值表、ESM-first 四端标准、四渠道分发、六项自动质检、一键凭证供给、新技能脚手架。
+version: 1.0.3
+summary: Fmode Harness 平台母技能标准指南 —— 平台端点真值表、ESM-first 四端标准、元数据规范、四渠道分发、六项自动质检、一键凭证供给、新技能脚手架。
+description: "Fmode 技能生态的宪法级规范文档。定义平台端点真值表（live/planned/deprecated 三态）、ESM-first 四端等价打包标准、元数据与标签规范、Gogs/GitHub/npm/skillhub 四渠道分发、六项自动质检（skip≠pass）、5 级诚实凭据链与新技能脚手架。读它不需要先读任何别的文档。The constitution of the Fmode skill ecosystem — platform endpoint truth table, ESM-first packaging standard, metadata spec, four-channel distribution, six-point quality gate."
+platform: HermesAgent
+level: 系统级
+category: 平台基础设施
+icon: "emoji: 📐"
+homepage: https://git.fmode.cn/fmode/skill-core-guide
 license: MIT
 author: Yuyang001 (FmodeAgent)
-tags: [fmode, harness, skill, standard, spec, esm, scaffold, meta]
+tags: [HermesAgent, FmodeAgent, 系统级, 平台基础设施, 规范, standard, spec, meta, scaffold, harness, esm, quality-check]
 ---
 
 # skill-core-guide · Fmode Harness 平台母技能标准指南
@@ -24,13 +30,14 @@ tags: [fmode, harness, skill, standard, spec, esm, scaffold, meta]
 - [零、给 Agent 的 60 秒速览](#零给-agent-的-60-秒速览)
 - [一、Fmode Harness 平台基础设施规范](#一fmode-harness-平台基础设施规范)
 - [二、技能分类体系](#二技能分类体系)
-- [三、ESM-first 多端可用打包标准](#三esm-first-多端可用打包标准)
-- [四、多渠道分发机制](#四多渠道分发机制)
-- [五、自动质检与看板机制](#五自动质检与看板机制)
-- [六、一键凭证供给机制](#六一键凭证供给机制)
-- [七、新技能开发 SOP](#七新技能开发-sop)
-- [八、事故复盘：本规范为什么这么写](#八事故复盘本规范为什么这么写)
-- [九、附录](#九附录)
+- [三、元数据规范](#三元数据规范)
+- [四、ESM-first 多端可用打包标准](#四esm-first-多端可用打包标准)
+- [五、多渠道分发机制](#五多渠道分发机制)
+- [六、自动质检与看板机制](#六自动质检与看板机制)
+- [七、一键凭证供给机制](#七一键凭证供给机制)
+- [八、新技能开发 SOP](#八新技能开发-sop)
+- [九、事故复盘：本规范为什么这么写](#九事故复盘本规范为什么这么写)
+- [十、附录](#十附录)
 
 ---
 
@@ -124,10 +131,10 @@ npx --yes skill-core-guide@latest publish . --apply
 | 4 | `server.fmode.cn/api/fmode/voc-skill/install-prompt` | POST | ✅ **live** | `x-parse-session-token` | **凭据自举唯一通道**：sessionToken → API token |
 | 5 | `server.fmode.cn/api/apig/deploy/huaweicloud` | POST | ✅ **live** | Bearer sessionToken | 签发项目隔离 OBS STS |
 | 6 | `server.fmode.cn/api/storage/upload` | POST | 🕓 planned | Bearer `sk-` | 对象存储上传（未上线，走 obsutil 直传） |
-| 7 | `server.fmode.cn/api/storage/credentials` | POST | ✗ **deprecated** | Bearer sessionToken | 从未上线（恒 404），见 §8.1 事故复盘 |
+| 7 | `server.fmode.cn/api/storage/credentials` | POST | ✗ **deprecated** | Bearer sessionToken | 从未上线（恒 404），见 §9.1 事故复盘 |
 | 8 | `server.fmode.cn/api/image/generate` | POST | 🕓 planned | Bearer `sk-` | 网关侧图像生成（未上线，用 #2 代替） |
 | 9 | `server.fmode.cn/api/vision/analyze` | POST | 🕓 planned | Bearer `sk-` | 网关侧视觉识别（未上线，用 #1 多模态代替） |
-| 10 | `server.fmode.cn/api/fmode/verifycode` | POST | 🕓 planned | 无 | 手机号验证码（未上线，见 §6） |
+| 10 | `server.fmode.cn/api/fmode/verifycode` | POST | 🕓 planned | 无 | 手机号验证码（未上线，见 §7） |
 
 **统计**：5 live ／ 4 planned ／ 1 deprecated。
 
@@ -248,7 +255,89 @@ Fmode 基础服务的客户端封装。**一个技能封装一个平台能力**�
 
 ---
 
-## 三、ESM-first 多端可用打包标准
+## 三、元数据规范
+
+技能元数据是**分发渠道的检索面**：skillhub.cn / npm / GitHub 的搜索排名、
+Agent 的技能选择、看板页面的渲染，全部读同一份字段。字段缺失或写法随意，
+技能就等于「发布即隐身」。
+
+> 本规范是**母技能自持**的：本章定义的字段，`skill-core-guide` 自己必须满足。
+> 全生态 17 个技能的当前取值见 [`inventory.md`](inventory.md) 与
+> [`awesome.md`](awesome.md)。
+
+### 3.1 每个技能的元数据字段
+
+| 字段 | 必填 | 说明 | 举例 |
+|------|------|------|------|
+| **slug** | ✅ | 全网唯一标识（skillhub 主键） | `fmode-skill-heterarchy` |
+| **displayName** | ✅ | 对外展示名（= 仓库名） | `skill-heterarchy` |
+| **version** | ✅ | 语义化版本（小步迭代） | `0.0.11` |
+| **summary** | ✅ | 一句话简介（中英文双语） | `内异层认知协同 — 单一Agent主体内部分化多心智并行…` |
+| **description** | ✅ | 详细描述（3-5 句） | 讲清「是什么 / 解决什么问题 / 怎么用」 |
+| **tags** | ✅ | 关键词标签数组 | `[HermesAgent, FmodeAgent, 系统级, cognition, parallel]` |
+| **platform** | ✅ | 目标平台 | `HermesAgent` ｜ `FmodeCode/ClaudeCode` ｜ `Both` |
+| **level** | ✅ | 能力层级 | `系统级` ｜ `服务级` ｜ `应用级` |
+| **category** | ✅ | 应用类别 / 行业 | `工具效率` ｜ `内容创作` ｜ `图像视觉` ｜ `音频处理` ｜ `平台基础设施` |
+| **icon** | ✅ | 图标标识 | `emoji: 🤖` |
+| **homepage** | 可选 | 项目主页 | `https://git.fmode.cn/fmode/skill-xxx` |
+| **license** | ✅ | 开源协议 | `MIT` |
+| **author** | ✅ | 维护者 | `Yuyang001 (FmodeAgent)` |
+| **changelog** | ✅ | 变更说明 | 每次发布必须更新 |
+
+**与 §3.5 frontmatter 的关系**：上表是**逻辑字段全集**，§3.5 的三种 frontmatter
+是它在各渠道的**物理落位**——Hermes 本地技能用 `name/description/version/tags`，
+仓库根 `SKILL.md` 用 `slug/displayName/version/summary/license`，
+看板/清单用 `level/category/icon/platform`。字段名可随渠道变化，**语义不可变**。
+
+### 3.2 标签分类体系
+
+`tags` 不是自由发挥的关键词堆，而是**三个正交维度**的组合。任意技能的 tags
+都应能拆成「平台 + 层级 + 行业/类别」三类。
+
+#### 平台标签
+
+| 标签 | 含义 |
+|------|------|
+| `HermesAgent` | 运行在 Hermes Agent 上，利用其工具 / 通道 / 记忆 / 技能体系 |
+| `FmodeAgent` | Fmode 品牌通用标签 |
+| `FmodeCode` | 为 Claude Code / FmodeCode CLI 设计 |
+| `ClaudeCode` | 兼容 Claude Code 执行端 |
+
+#### 层级标签
+
+| 标签 | 含义 | 代表技能 |
+|------|------|----------|
+| `系统级` | 底层运行、消息机制、基础功能 | `skill-heterarchy`、`skill-core-guide` |
+| `服务级` | 云资源、模型、拓展能力 | `skill-vision`、`skill-image`、`skill-storage` |
+| `应用级` | 具体业务场景、SOP、行业应用 | `skill-product-lab`、`skill-study-report` |
+
+#### 行业 / 类别标签
+
+`工具效率`、`内容创作`、`图像视觉`、`音频处理`、`平台基础设施`、
+`数据管理`、`学习复盘`、`新品研发`
+
+> 📌 层级标签与 §2 的三层分类体系（`system` / `service` / `application`）
+> 是同一件事的两种写法：中文标签给人看，英文 `tier` 给机器读
+> （见 `lib/inventory.mjs` 的 `TIERS`）。
+
+### 3.3 SEO 优化原则（用于 skillhub.cn 等平台搜索排名）
+
+平台搜索按「标题 / summary 命中 + 标签匹配 + 更新活跃度」排序。四条硬规则：
+
+1. **summary 前 15 个字必须包含核心关键词** —— 搜索结果只截前 15 字，
+   把「做什么」写在最前面，不要写「一款…」「基于…」这类铺垫。
+2. **中英文双语描述** —— 中文为主体，英文辅助检索
+   （`summary` 中文 + `description` 内附英文段落）。
+3. **tags 至少包含三类各一个** —— 一个分类标签 + 一个平台标签 + 一个层级标签。
+4. **每次发布必须更新 `version` + `changelog`** —— 活跃度是排名因子，
+   版本不动的技能会持续掉权。
+
+> ⚠️ **反面案例**：`summary: 一款基于大模型的技能` —— 前 15 字无关键词、
+> 无平台、无层级、无行业标签，在 skillhub 搜索里等同于不存在。
+
+---
+
+## 四、ESM-first 多端可用打包标准
 
 ### 3.1 包结构模板
 
@@ -445,9 +534,9 @@ tags: [tag1, tag2]
 
 ---
 
-## 四、多渠道分发机制
+## 五、多渠道分发机制
 
-### 4.1 四渠道定位
+### 5.1 四渠道定位
 
 | 渠道 | 定位 | 同步方向 | 凭据位置 |
 |------|------|----------|----------|
@@ -458,7 +547,7 @@ tags: [tag1, tag2]
 
 **工作流**：日常迭代在 Gogs 进行 → 版本稳定后推 GitHub → 同时发 npm 与 skillhub。
 
-### 4.2 发布清单
+### 5.2 发布清单
 
 ```bash
 # ---------- Gogs（主仓）----------
@@ -481,7 +570,7 @@ skillhub publish <dir> --changelog "<msg>"
 
 > 💡 一条命令生成完整计划：`skill-core publish .`（加 `--apply` 实际执行）。
 
-### 4.3 建仓注意事项（实测）
+### 5.3 建仓注意事项（实测）
 
 | 渠道 | 建仓方式 | 实测结论 |
 |------|----------|----------|
@@ -500,7 +589,7 @@ curl -X POST -H "Authorization: Bearer $GH_TOKEN" \
      -d '{"name":"skill-my-thing","description":"...","private":false,"license_template":"mit"}'
 ```
 
-### 4.4 发布前检查清单
+### 5.4 发布前检查清单
 
 - [ ] `npm test` 通过
 - [ ] `skill-core check .` 六项无失败
@@ -513,9 +602,9 @@ curl -X POST -H "Authorization: Bearer $GH_TOKEN" \
 
 ---
 
-## 五、自动质检与看板机制
+## 六、自动质检与看板机制
 
-### 5.1 六项检查
+### 6.1 六项检查
 
 技能开发完成后**必须**跑六项质检。用 `skill-core check .` 一键执行。
 
@@ -528,7 +617,7 @@ curl -X POST -H "Authorization: Bearer $GH_TOKEN" \
 | 5 | **Loop 迭代能力** | `loop` | `npm view <name>`（轻量）/ `npx --yes <name>@latest`（`--deep`） | 用户装不上 |
 | 6 | **多端可用性** | `multiRuntime` | 实测 ESM `import` + CLI `--help`，扫描 browser 的 `node:` 依赖 | 某端不可用 |
 
-### 5.2 结果语义（关键设计）
+### 6.2 结果语义（关键设计）
 
 质检结果有三种状态，**语义严格区分**：
 
@@ -545,7 +634,7 @@ curl -X POST -H "Authorization: Bearer $GH_TOKEN" \
 每项检查都会输出 **evidence**（可复核的证据：命令、退出码、HTTP 码、输出片段）。
 没有 evidence 的 pass 是不允许的。
 
-### 5.3 常用命令
+### 6.3 常用命令
 
 ```bash
 skill-core check .                              # 全量六项
@@ -556,7 +645,7 @@ skill-core check . --json                       # 机器可读（CI 集成）
 skill-core check . --allow-skip                 # 有 skip 也返回 0（慎用）
 ```
 
-### 5.4 看板机制
+### 6.4 看板机制
 
 **数据源**：`skill-package-manifest.json`（每仓库根目录一个）。
 
@@ -578,7 +667,7 @@ skill-core check . --allow-skip                 # 有 skip 也返回 0（慎用�
 配套的运行时上报能力见 `skill-task-progress`（四态上报 `ack→running→done/failed` +
 30s 心跳 + 交付物入库）。
 
-### 5.5 Loop 迭代能力
+### 6.5 Loop 迭代能力
 
 **定义**：技能必须能通过 `npx --yes <skill>@latest` 被拉到并运行，形成
 「开发 → 发布 → 用户拉取 → 反馈 → 再开发」的闭环。
@@ -594,9 +683,9 @@ skill-core check . --allow-skip                 # 有 skip 也返回 0（慎用�
 
 ---
 
-## 六、一键凭证供给机制
+## 七、一键凭证供给机制
 
-### 6.1 诚实声明（先读这段）
+### 7.1 诚实声明（先读这段）
 
 任务书描述的「手机号 + 验证码 → 自动创建 `~/.fmode/`」路径依赖端点：
 
@@ -608,7 +697,7 @@ POST https://server.fmode.cn/api/fmode/verifycode
 因此本技能的 `lib/bootstrap.mjs` **不会伪造短信流程假装成功** ——
 它会探测端点，未上线时明确返回 `{ ok: false, planned: true }` 并给出可执行的替代路径。
 
-### 6.2 当前真实可用的自举路径
+### 7.2 当前真实可用的自举路径
 
 **sessionToken → API token 自举**（生产实测，与 `skill-listen` / `skill-vision` 同源）：
 
@@ -629,7 +718,7 @@ fmode API token（sk- 开头）—— 仅内存持有，不落盘、不进日志
 > ⚠️ 服务端**唯一**以 session 鉴权并返回 token 本体的端点是 `voc-skill/install-prompt`。
 > token 内嵌在返回的 prompt 文本中，必须用正则提取。
 
-### 6.3 标准 5 级凭据解析链
+### 7.3 标准 5 级凭据解析链
 
 **所有技能必须实现这条链**（命中即用，逐级回落）：
 
@@ -651,7 +740,7 @@ fmode API token（sk- 开头）—— 仅内存持有，不落盘、不进日志
 
 **全链失败时**：打印初始化向导 + **退出码 2**。绝不伪装成功。
 
-### 6.4 目录供给（幂等）
+### 7.4 目录供给（幂等）
 
 ```javascript
 import { ensureFmodeDir, writeConfig } from 'skill-core-guide';
@@ -668,7 +757,7 @@ writeConfig({ storageProjectId: 'proj-xxx', obsBucket: 'my-bucket' });
 > `sessionToken` / `apiKey` / `apiKeys` / `githubToken` / `password` / `secret`。
 > 这些值必须由用户自己写，避免技能代写导致泄露。
 
-### 6.5 检查凭据状态
+### 7.5 检查凭据状态
 
 ```bash
 npx --yes skill-core-guide@latest bootstrap
@@ -687,7 +776,7 @@ npx --yes skill-core-guide@latest bootstrap
   结果：✅ 凭据可用（sessionToken 自举，sk-abc...wxyz）
 ```
 
-### 6.6 端点上线后的启用方式
+### 7.6 端点上线后的启用方式
 
 `/api/fmode/verifycode` 上线后，**只需改一处**：
 
@@ -703,9 +792,9 @@ verifyCode: {
 
 ---
 
-## 七、新技能开发 SOP
+## 八、新技能开发 SOP
 
-### 7.1 完整流程
+### 8.1 完整流程
 
 ```bash
 # ---------- 1. 从母技能创建脚手架 ----------
@@ -766,7 +855,7 @@ skillhub login --key <API_KEY> --host https://api.skillhub.cn
 skillhub publish . --changelog "首版"
 ```
 
-### 7.2 脚手架生成的结构
+### 8.2 脚手架生成的结构
 
 ```
 skill-my-thing/
@@ -781,7 +870,7 @@ skill-my-thing/
 └── test/smoke.mjs                 # 冒烟测试
 ```
 
-### 7.3 开发纪律（写给 Agent）
+### 8.3 开发纪律（写给 Agent）
 
 | 纪律 | 说明 |
 |------|------|
@@ -795,11 +884,11 @@ skill-my-thing/
 
 ---
 
-## 八、事故复盘：本规范为什么这么写
+## 九、事故复盘：本规范为什么这么写
 
 规范里的每条「⚠️」都对应一次真实事故。理解事故才能理解规范。
 
-### 8.1 「伪自举」事故 —— skip ≠ pass 的由来
+### 9.1 「伪自举」事故 —— skip ≠ pass 的由来
 
 **背景**：`skill-storage` 0.2.x 实现了「登录即可上传」：用 sessionToken 调
 `POST /api/storage/credentials` 换 OBS STS。
@@ -817,10 +906,10 @@ skill-my-thing/
 
 **沉淀为规范**：
 - 端点真值表区分 `live` / `planned` / `deprecated`（§1.3）
-- 质检的 `skip` 状态**不算通过**，且导致 CI 失败（§5.2）
-- 每项检查必须给出 evidence（§5.2）
+- 质检的 `skip` 状态**不算通过**，且导致 CI 失败（§6.2）
+- 每项检查必须给出 evidence（§6.2）
 
-### 8.2 「看不见 token」事故 —— 第 4 级凭据的由来
+### 9.2 「看不见 token」事故 —— 第 4 级凭据的由来
 
 **问题**：用户按 Claude Code 的正常方式配好了 SK（写在 `~/.claude/settings.json` 的
 `env.ANTHROPIC_AUTH_TOKEN`），但技能只读进程环境变量，**从不读这个文件** →
@@ -828,35 +917,35 @@ skill-my-thing/
 
 **关键认知**：**fmode 的 newapi SK 默认就是 Claude Code 的 `ANTHROPIC_AUTH_TOKEN`**。
 
-**沉淀为规范**：凭据链第 4 级必须读 Claude Code settings（§6.3），
+**沉淀为规范**：凭据链第 4 级必须读 Claude Code settings（§7.3），
 且要覆盖 `.local` 与项目级文件。
 
-### 8.3 「BOM 解析失败」事故
+### 9.3 「BOM 解析失败」事故
 
 **问题**：用户手工保存的 `config.json` 带 UTF-8 BOM（`EF BB BF`），
 `JSON.parse` 直接抛错，技能判为「配置损坏」。
 
 **沉淀为规范**：解析任何用户可能手改的 JSON 前必须剥 BOM（§1.2）。
 
-### 8.4 「假成功」事故 —— ESM 空日志
+### 9.4 「假成功」事故 —— ESM 空日志
 
 **问题**：spawn 子进程执行命令，日志为空、exit 0，被当成成功。
 实际是 `command not found` 被 shell 吞掉，或用了相对路径而 cwd 不对。
 
 **沉淀为规范**：用绝对路径调用可执行文件；判断成功要看**产物**（文件存在、
-HTTP 200、内容非空），不看退出码 alone（§7.3）。
+HTTP 200、内容非空），不看退出码 alone（§8.3）。
 
-### 8.5 「双包危害」—— 为什么 ESM only
+### 9.5 「双包危害」—— 为什么 ESM only
 
 **问题**：同时提供 CJS 与 ESM 入口时，同一模块可能被加载两份，单例状态分裂。
 
-**沉淀为规范**：ESM only，不提供 CJS 入口；CJS 场景用动态 `import()`（§3.3）。
+**沉淀为规范**：ESM only，不提供 CJS 入口；CJS 场景用动态 `import()`（§4.3）。
 
 ---
 
-## 九、附录
+## 十、附录
 
-### 9.1 CLI 命令参考
+### 10.1 CLI 命令参考
 
 ```bash
 skill-core --help                   # 帮助
@@ -871,7 +960,7 @@ skill-core spec                     # 平台规范摘要
 skill-core endpoints                # 端点真值表
 ```
 
-### 9.2 SDK API 参考
+### 10.2 SDK API 参考
 
 ```javascript
 import {
@@ -895,13 +984,13 @@ import {
 } from 'skill-core-guide';
 ```
 
-### 9.3 浏览器端 API
+### 10.3 浏览器端 API
 
 ```javascript
 import { PLATFORM, ENDPOINTS, validatePackageJson, checkApiConnectivity } from 'skill-core-guide/browser';
 ```
 
-### 9.4 相关技能
+### 10.4 相关技能
 
 | 技能 | 关系 |
 |------|------|
@@ -911,7 +1000,7 @@ import { PLATFORM, ENDPOINTS, validatePackageJson, checkApiConnectivity } from '
 | `skill-storage` | 存储接入的权威参考实现 |
 | `skill-listen` / `skill-vision` | 凭据链与自举的生产参考实现 |
 
-### 9.5 变更记录
+### 10.5 变更记录
 
 #### 1.0.0
 - 首版：平台端点真值表（实测 2026-09-22）、技能分层清单、ESM-first 四端标准、
@@ -921,6 +1010,13 @@ import { PLATFORM, ENDPOINTS, validatePackageJson, checkApiConnectivity } from '
   已在真值表中标注并给出替代路径
 - 真实端点补充：`/v1/images/generations`（live）、`/api/apig/deploy/huaweicloud`（live）、
   `/api/fmode/voc-skill/install-prompt`（live，凭据自举唯一通道）
+
+#### 1.0.2
+- 新增 **§3 元数据规范**：14 个元数据字段、三维标签分类体系、SEO 四原则
+- 章节重编号：原 §3-§9 → §4-§10，全文 `§x.y` 交叉引用同步更新
+- 新增 [`awesome.md`](awesome.md)（全生态技能清单）与
+  [`browser/awesome.html`](browser/awesome.html)（可发布 CDN 的技能看板）
+- 版本号三处对齐：`package.json` / `lib/index.mjs` / `browser/index.mjs`
 
 ## License
 

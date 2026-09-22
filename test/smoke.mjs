@@ -44,7 +44,7 @@ test('lib/index.mjs 导出全部公共接口', () => {
   for (const k of required) {
     assert.ok(k in core, `缺少导出：${k}`);
   }
-  assert.equal(core.VERSION, '1.0.1');
+  assert.equal(core.VERSION, '1.0.3');
 });
 
 test('ENDPOINTS 真值表结构合法', () => {
@@ -309,7 +309,7 @@ test('browser/index.mjs 不 import 任何 node: 内置模块', () => {
 
 test('browser bundle 可独立 import 且导出核心常量', async () => {
   const b = await import('../browser/index.mjs');
-  assert.equal(b.VERSION, '1.0.1');
+  assert.equal(b.VERSION, '1.0.3');
   assert.ok(b.PLATFORM.apiBase.includes('fmode.cn'));
   assert.ok(Object.keys(b.ENDPOINTS).length > 0);
   assert.equal(typeof b.validatePackageJson, 'function');

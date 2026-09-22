@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awesome Fmode Skills · Fmode Harness 平台技能看板</title>
+<meta name="description" content="Fmode Harness 平台技能生态全家桶：系统级 / 服务级 / 应用级共 16 个技能，含安装命令、版本与标签。Gogs / GitHub / npm / skillhub.cn 四渠道直达。">
+<meta name="keywords" content="Fmode,Harness,Skill,技能,Agent,HermesAgent,FmodeAgent,ClaudeCode,skillhub,awesome">
+<meta property="og:title" content="Awesome Fmode Skills · 技能看板">
+<meta property="og:description" content="Fmode Harness 平台技能生态全家桶 — 16 个技能，按层级分类，一键复制安装命令。">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+<style>
+/* ===== Theme tokens — 与 fmode-studio website 同源 (src/styles/theme.css) ===== */
+:root {
+  --color-purple: #6C5CE7;
+  --color-purple-light: #A78BFA;
+  --color-purple-dark: #4C3FB8;
+  --color-blue: #4A90D9;
+  --color-blue-light: #60A5FA;
+  --color-cyan: #00D2FF;
+  --gradient-primary: linear-gradient(135deg, var(--color-purple), var(--color-blue));
+  --gradient-hero: linear-gradient(135deg, #1a0533 0%, #0d1b3e 50%, #060d24 100%);
+  --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.15), rgba(74, 144, 217, 0.1));
+  --gradient-border: linear-gradient(135deg, var(--color-purple), var(--color-cyan));
+  --gradient-text: linear-gradient(135deg, var(--color-purple-light), var(--color-cyan));
+
+  --bg-deep: #060913;
+  --bg-page: #060913;
+  --bg-card: rgba(15, 15, 40, 0.6);
+  --bg-card-hover: rgba(25, 25, 60, 0.8);
+  --bg-section-alt: rgba(10, 10, 30, 0.4);
+  --bg-nav: rgba(6, 9, 19, 0.9);
+  --bg-code: rgba(6, 9, 19, 0.7);
+
+  --text-primary: #F0F0FF;
+  --text-secondary: #A0A0C0;
+  --text-muted: #606080;
+  --text-heading: #F0F0FF;
+
+  --border-subtle: rgba(108, 92, 231, 0.15);
+  --border-card: rgba(108, 92, 231, 0.2);
+  --glass-bg: rgba(15, 15, 40, 0.5);
+  --glass-border: rgba(108, 92, 231, 0.2);
+  --glass-blur: blur(20px);
+
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+  --shadow-nav: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  --font-heading: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-body: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  --content-width: 1200px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] {
+  --color-purple-light: #7C3AED;
+  --color-blue: #3B82F6;
+  --color-cyan: #0891B2;
+  --gradient-hero: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 50%, #F8F9FC 100%);
+  --gradient-card: linear-gradient(135deg, rgba(108, 92, 231, 0.06), rgba(59, 130, 246, 0.04));
+  --gradient-text: linear-gradient(135deg, #6C5CE7, #0891B2);
+  --bg-deep: #F8F9FC;
+  --bg-page: #F8F9FC;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --bg-section-alt: #F1F5F9;
+  --bg-nav: rgba(248, 249, 252, 0.9);
+  --bg-code: rgba(241, 245, 249, 0.9);
+  --text-primary: #1A1A2E;
+  --text-secondary: #4A4A6A;
+  --text-muted: #6B7280;
+  --text-heading: #0F0F23;
+  --border-subtle: rgba(108, 92, 231, 0.12);
+  --border-card: rgba(108, 92, 231, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(108, 92, 231, 0.15);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-nav: 0 2px 20px rgba(0, 0, 0, 0.06);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color .3s ease, color .3s ease;
+}
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
+a { color: var(--color-purple-light); text-decoration: none; transition: color .3s; }
+a:hover { color: var(--color-cyan); }
+.wrap { max-width: var(--content-width); margin: 0 auto; padding: 0 24px; }
+
+/* ===== Hero ===== */
+.hero {
+  position: relative; overflow: hidden;
+  background: var(--gradient-hero);
+  padding: 88px 0 64px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(700px 340px at 12% 0%, rgba(108, 92, 231, .30), transparent 65%),
+    radial-gradient(600px 300px at 88% 15%, rgba(0, 210, 255, .18), transparent 65%);
+  pointer-events: none;
+}
+.hero .wrap { position: relative; z-index: 1; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; letter-spacing: .3px;
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid var(--border-card);
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+  color: var(--text-secondary);
+}
+.pill b { color: var(--color-purple-light); }
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  background: var(--gradient-text); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  margin-bottom: 14px;
+}
+.hero p.lead { font-size: clamp(.95rem, 1.6vw, 1.15rem); color: var(--text-secondary); max-width: 720px; }
+.hero .meta { margin-top: 22px; font-size: 13px; color: var(--text-muted); font-family: var(--font-mono); }
+.hero .meta a { color: var(--color-purple-light); }
+
+/* ===== Toolbar ===== */
+.toolbar {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--bg-nav); backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-nav);
+}
+.toolbar .wrap { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
+.search {
+  flex: 1 1 240px; min-width: 180px;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-code); border: 1px solid var(--border-card);
+  border-radius: 10px; padding: 8px 12px;
+}
+.search input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--text-primary); font-family: var(--font-body); font-size: 14px;
+}
+.search input::placeholder { color: var(--text-muted); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  cursor: pointer; font-size: 12.5px; font-weight: 600;
+  padding: 7px 13px; border-radius: 8px;
+  border: 1px solid var(--border-card); background: transparent;
+  color: var(--text-secondary); font-family: var(--font-body);
+  transition: all .2s var(--ease-out-expo);
+}
+.chip:hover { color: var(--text-primary); border-color: var(--color-purple-light); }
+.chip.active { background: var(--gradient-primary); color: #fff; border-color: transparent; }
+.theme-btn {
+  cursor: pointer; width: 38px; height: 38px; flex: 0 0 auto;
+  border-radius: 10px; border: 1px solid var(--border-card);
+  background: transparent; color: var(--text-secondary); font-size: 16px;
+  transition: all .2s;
+}
+.theme-btn:hover { color: var(--text-primary); border-color: var(--color-purple-light); }
+
+/* ===== Sections ===== */
+main { padding: 8px 0 72px; }
+section.tier { padding: 44px 0 8px; }
+.tier-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+.tier-head h2 { font-size: clamp(1.35rem, 2.6vw, 1.9rem); }
+.tier-head .count {
+  font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+  background: var(--gradient-card); border: 1px solid var(--border-card);
+  color: var(--color-purple-light);
+}
+.tier-desc { color: var(--text-secondary); font-size: 14.5px; margin-bottom: 22px; max-width: 780px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+
+/* ===== Card ===== */
+.card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--bg-card); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-card); border-radius: 16px;
+  padding: 20px; box-shadow: var(--shadow-card);
+  transition: transform .35s var(--ease-out-expo), border-color .35s, background-color .35s;
+}
+.card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 16px;
+  background: var(--gradient-card); opacity: 0; transition: opacity .35s;
+  pointer-events: none;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--color-purple-light); background: var(--bg-card-hover); }
+.card:hover::before { opacity: 1; }
+.card > * { position: relative; z-index: 1; }
+.card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.icon { font-size: 26px; line-height: 1; flex: 0 0 auto; }
+.card-title { flex: 1; min-width: 0; }
+.card-title h3 { font-size: 1.05rem; word-break: break-word; }
+.card-title .cn { font-size: 12.5px; color: var(--text-muted); }
+.ver {
+  flex: 0 0 auto; font-family: var(--font-mono); font-size: 11.5px;
+  padding: 3px 8px; border-radius: 6px;
+  background: var(--gradient-card); border: 1px solid var(--border-card);
+  color: var(--color-cyan);
+}
+.card p.desc { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+.tag {
+  font-size: 11px; padding: 3px 8px; border-radius: 6px;
+  background: var(--bg-section-alt); border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+.tag.lv { color: var(--color-purple-light); border-color: var(--border-card); }
+
+.install { margin-top: auto; }
+.install-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; letter-spacing: .4px; }
+.install-row { display: flex; gap: 8px; align-items: stretch; }
+.install code {
+  flex: 1; min-width: 0;
+  font-family: var(--font-mono); font-size: 12px;
+  background: var(--bg-code); border: 1px solid var(--border-card); border-radius: 9px;
+  padding: 9px 11px; color: var(--text-primary);
+  overflow-x: auto; white-space: nowrap; scrollbar-width: thin;
+}
+.copy {
+  cursor: pointer; flex: 0 0 auto;
+  padding: 0 13px; border-radius: 9px; border: 1px solid transparent;
+  background: var(--gradient-primary); color: #fff;
+  font-size: 12.5px; font-weight: 600; font-family: var(--font-body);
+  transition: filter .2s, transform .2s;
+}
+.copy:hover { filter: brightness(1.12); }
+.copy:active { transform: scale(.96); }
+.copy.done { background: linear-gradient(135deg, #10B981, #059669); }
+.card-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 12px; }
+.card-links a { color: var(--text-muted); }
+.card-links a:hover { color: var(--color-purple-light); }
+
+/* ===== Notice / footer ===== */
+.notice {
+  margin: 40px 0 0; padding: 18px 20px; border-radius: 14px;
+  background: var(--gradient-card); border: 1px solid var(--border-card);
+  font-size: 13.5px; color: var(--text-secondary);
+}
+.notice strong { color: var(--text-primary); }
+.notice code {
+  font-family: var(--font-mono); font-size: 12px; color: var(--color-cyan);
+  background: var(--bg-code); padding: 1px 6px; border-radius: 5px;
+}
+footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 32px 0 48px; font-size: 13px; color: var(--text-muted);
+}
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+footer a { color: var(--text-secondary); }
+
+.empty { display: none; padding: 48px 0; text-align: center; color: var(--text-muted); }
+.empty.show { display: block; }
+
+/* ===== Toast ===== */
+#toast {
+  position: fixed; left: 50%; bottom: 32px; transform: translate(-50%, 20px);
+  background: var(--gradient-primary); color: #fff;
+  padding: 11px 22px; border-radius: 999px; font-size: 13.5px; font-weight: 600;
+  box-shadow: 0 12px 40px rgba(108, 92, 231, .45);
+  opacity: 0; pointer-events: none; transition: opacity .28s, transform .28s var(--ease-out-expo);
+  z-index: 100;
+}
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 640px) {
+  .hero { padding: 60px 0 44px; }
+  .grid { grid-template-columns: 1fr; }
+  .toolbar .wrap { padding-top: 10px; padding-bottom: 10px; }
+  .search { order: 3; flex-basis: 100%; }
+  section.tier { padding: 32px 0 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="badge-row">
+      <span class="pill">🧩 <b>16</b> 个技能</span>
+      <span class="pill">🏗️ 系统级 <b>7</b></span>
+      <span class="pill">☁️ 服务级 <b>6</b></span>
+      <span class="pill">🚀 应用级 <b>3</b></span>
+      <span class="pill">📦 四渠道分发</span>
+      <span class="pill">📄 <a href="https://git.fmode.cn/fmode/skill-core-guide/blob/master/awesome.md" target="_blank" rel="noopener" style="color:inherit">awesome.md</a></span>
+    </div>
+    <h1>Awesome Fmode Skills</h1>
+    <p class="lead">
+      Fmode Harness 平台技能生态全家桶 —— 按能力层级分类，一键复制安装命令。
+      Gogs / GitHub / npm / skillhub.cn 四渠道直达。
+    </p>
+    <p class="meta">
+      元数据规范 SKILL.md §3 ｜ 机器可读清单 <code>skill-core inventory</code> ｜ 更新 2026-09-22
+    </p>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <label class="search">
+      <span aria-hidden="true">🔍</span>
+      <input id="q" type="search" placeholder="搜索技能名 / 说明 / 标签…" aria-label="搜索技能">
+    </label>
+    <div class="filters" role="group" aria-label="按层级筛选">
+      <button class="chip active" data-tier="all">全部</button>
+      <button class="chip" data-tier="system">系统级</button>
+      <button class="chip" data-tier="service">服务级</button>
+      <button class="chip" data-tier="application">应用级</button>
+    </div>
+    <button class="theme-btn" id="theme" title="切换明暗主题" aria-label="切换明暗主题">🌙</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="tier" data-tier="system">
+    <div class="tier-head">
+      <h2>🏗️ 系统级 · 平台基础设施</h2>
+      <span class="count">7 个技能</span>
+    </div>
+    <p class="tier-desc">底层运行、消息机制、基础功能。不依赖任何业务场景，是其他技能的地基。</p>
+    <div class="grid">
+
+      <article class="card" data-tags="skill-heterarchy 内异层认知协同 认知协作 parallel cognition orchestration HermesAgent FmodeAgent 系统级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">🧠</span>
+          <div class="card-title"><h3>skill-heterarchy</h3><div class="cn">内异层认知协同</div></div>
+          <span class="ver">0.0.11</span>
+        </div>
+        <p class="desc">单一 Agent 主体内部多心智分化与自治协商。Delegate 是对外派活，Heterarchy 是对内分思。</p>
+        <div class="tags">
+          <span class="tag lv">系统级</span><span class="tag">HermesAgent</span><span class="tag">平台基础设施</span><span class="tag">cognition</span><span class="tag">parallel</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes skill-heterarchy@latest</code>
+            <button class="copy" data-copy="npx --yes skill-heterarchy@latest">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-heterarchy" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-heterarchy" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/skill-heterarchy" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-core-guide 母技能标准指南 规范 standard spec meta scaffold harness HermesAgent FmodeAgent 系统级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">📐</span>
+          <div class="card-title"><h3>skill-core-guide</h3><div class="cn">母技能标准指南</div></div>
+          <span class="ver">1.0.2</span>
+        </div>
+        <p class="desc">Fmode Harness 平台母技能标准指南 —— 平台端点真值表、ESM-first 四端标准、元数据规范、四渠道分发、六项自动质检、新技能脚手架。</p>
+        <div class="tags">
+          <span class="tag lv">系统级</span><span class="tag">HermesAgent</span><span class="tag">平台基础设施</span><span class="tag">standard</span><span class="tag">scaffold</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes skill-core-guide@latest</code>
+            <button class="copy" data-copy="npx --yes skill-core-guide@latest">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-core-guide" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-core-guide" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/skill-core-guide" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-multi-branch 多任务工作框架 编排 orchestration multi-agent dispatch HermesAgent FmodeAgent 系统级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">🌿</span>
+          <div class="card-title"><h3>skill-multi-branch</h3><div class="cn">多任务工作框架</div></div>
+          <span class="ver">0.1.1</span>
+        </div>
+        <p class="desc">沟通 / 执行分层编排 —— Hermes 负责沟通，专业任务派发 Claude Code / Codex 执行层。</p>
+        <div class="tags">
+          <span class="tag lv">系统级</span><span class="tag">HermesAgent</span><span class="tag">平台基础设施</span><span class="tag">orchestration</span><span class="tag">multi-agent</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>git clone https://git.fmode.cn/fmode/skill-multi-branch.git</code>
+            <button class="copy" data-copy="git clone https://git.fmode.cn/fmode/skill-multi-branch.git">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-multi-branch" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-multi-branch" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-bypass-permission YOLO模式体检 权限 permission yolo HermesAgent 系统级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">🛡️</span>
+          <div class="card-title"><h3>skill-bypass-permission</h3><div class="cn">YOLO 模式体检器</div></div>
+          <span class="ver">0.1.1</span>
+        </div>
+        <p class="desc">校验并幂等修复 Agent 免确认自主执行配置 —— Hermes approvals.mode=off/yolo 与 Claude Code skip-permissions。</p>
+        <div class="tags">
+          <span class="tag lv">系统级</span><span class="tag">HermesAgent</span><span class="tag">平台基础设施</span><span class="tag">permission</span><span class="tag">yolo</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>git clone https://git.fmode.cn/fmode/skill-bypass-permission.git</code>
+            <button class="copy" data-copy="git clone https://git.fmode.cn/fmode/skill-bypass-permission.git">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-bypass-permission" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-bypass-permission" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-task-progress 任务进度与成果上报 进度 progress tracking heartbeat HermesAgent 系统级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">📊</span>
+          <div class="card-title"><h3>skill-task-progress</h3><div class="cn">任务进度与成果上报</div></div>
+          <span class="ver">0.1.0</span>
+        </div>
+        <p class="desc">任务进度 4 态跟踪（ack / running / done / failed + health 心跳），交付链接幂等入库，App 看板实时可见。</p>
+        <div class="tags">
+          <span class="tag lv">系统级</span><span class="tag">HermesAgent</span><span class="tag">平台基础设施</span><span class="tag">progress</span><span class="tag">tracking</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>git clone https://git.fmode.cn/fmode/skill-task-progress.git</code>
+            <button class="copy" data-copy="git clone https://git.fmode.cn/fmode/skill-task-progress.git">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-task-progress" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-task-progress" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-agent-clone 数字生命克隆 克隆 clone lifecycle backup soul memory FmodeAgent 系统级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">🧬</span>
+          <div class="card-title"><h3>skill-agent-clone</h3><div class="cn">数字生命克隆</div></div>
+          <span class="ver">0.1.1</span>
+        </div>
+        <p class="desc">克隆 Hermes 配置 / SOUL / 记忆 / 会话到新 Agent。按 L1-L4 分级同步，密钥只记位置索引不入仓。</p>
+        <div class="tags">
+          <span class="tag lv">系统级</span><span class="tag">FmodeAgent</span><span class="tag">平台基础设施</span><span class="tag">clone</span><span class="tag">lifecycle</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>git clone https://git.fmode.cn/fmode/skill-agent-clone.git</code>
+            <button class="copy" data-copy="git clone https://git.fmode.cn/fmode/skill-agent-clone.git">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-agent-clone" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-agent-clone" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="plugin-wecom-fix 企微通道自检修复 wecom plugin patch channel-fix HermesAgent 系统级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">🔧</span>
+          <div class="card-title"><h3>plugin-wecom-fix</h3><div class="cn">企微通道自检修复</div></div>
+          <span class="ver">plugin</span>
+        </div>
+        <p class="desc">修复官方 wecom 插件四项接收缺陷：大视频收不到、合并转发不识别、批量图片丢失、长文件名 Errno 36。幂等 patch.py。</p>
+        <div class="tags">
+          <span class="tag lv">系统级</span><span class="tag">HermesAgent</span><span class="tag">平台基础设施</span><span class="tag">plugin</span><span class="tag">wecom</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>git clone https://github.com/fmodecn/plugin-wecom-fix.git && python3 plugin-wecom-fix/patch.py --apply</code>
+            <button class="copy" data-copy="git clone https://github.com/fmodecn/plugin-wecom-fix.git && python3 plugin-wecom-fix/patch.py --apply">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/fmodecn/plugin-wecom-fix" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="tier" data-tier="service">
+    <div class="tier-head">
+      <h2>☁️ 服务级 · 云资源 / 模型 / 拓展能力</h2>
+      <span class="count">6 个技能</span>
+    </div>
+    <p class="tier-desc">一个技能封装一个平台能力。接口稳定、无业务假设。</p>
+    <div class="grid">
+
+      <article class="card" data-tags="skill-image AI图像生成 图像 image generation AI绘图 app arch explode product scene FmodeCode ClaudeCode 服务级 图像视觉">
+        <div class="card-top">
+          <span class="icon">🎨</span>
+          <div class="card-title"><h3>skill-image</h3><div class="cn">AI 图像生成器</div></div>
+          <span class="ver">0.2.0</span>
+        </div>
+        <p class="desc">AI 图像生成器 —— 7 种模式（app / arch / explode / product / scene / portrait / ui），白底 PNG 场景图，约 ¥0.3-0.5/张。</p>
+        <div class="tags">
+          <span class="tag lv">服务级</span><span class="tag">FmodeCode</span><span class="tag">图像视觉</span><span class="tag">image</span><span class="tag">generation</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes fmode-image@latest --arch "系统架构图"</code>
+            <button class="copy" data-copy='npx --yes fmode-image@latest --arch "系统架构图"'>复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/fmodecn/fmode-image" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/fmode-image" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-vision 视觉识别 视觉 vision AI识别 OCR multimodal image-analysis FmodeCode ClaudeCode 服务级 图像视觉">
+        <div class="card-top">
+          <span class="icon">👁️</span>
+          <div class="card-title"><h3>skill-vision</h3><div class="cn">视觉识别</div></div>
+          <span class="ver">0.1.1</span>
+        </div>
+        <p class="desc">视觉识别 —— 宿主多模态模型优先（零额外成本），否则回落 Fmode API 分析图片 / 视频帧，支持结构化 JSON 输出。</p>
+        <div class="tags">
+          <span class="tag lv">服务级</span><span class="tag">FmodeCode</span><span class="tag">图像视觉</span><span class="tag">vision</span><span class="tag">OCR</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes fmode-vision@latest --image ./a.png</code>
+            <button class="copy" data-copy="npx --yes fmode-vision@latest --image ./a.png">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/fmodecn/skill-vision" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/fmode-vision" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-listen 录音转写 音频 transcribe ASR 语音 iflytek lfasr FmodeCode ClaudeCode 服务级 音频处理">
+        <div class="card-top">
+          <span class="icon">🎤</span>
+          <div class="card-title"><h3>skill-listen</h3><div class="cn">录音转写</div></div>
+          <span class="ver">0.1.2</span>
+        </div>
+        <p class="desc">录音转写 —— 讯飞 LFASR × Fmode 网关，中英多语种 / 方言转文字，支持说话人分离，凭据仅服务端持有。</p>
+        <div class="tags">
+          <span class="tag lv">服务级</span><span class="tag">FmodeCode</span><span class="tag">音频处理</span><span class="tag">transcribe</span><span class="tag">ASR</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes fmode-listen@latest transcribe -- meeting.mp3</code>
+            <button class="copy" data-copy="npx --yes fmode-listen@latest transcribe -- meeting.mp3">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-listen" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-listen" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/fmode-listen" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-ffmpeg FFmpeg音视频处理 音视频 ffmpeg media transcode extract FmodeCode ClaudeCode 服务级 音频处理">
+        <div class="card-top">
+          <span class="icon">🎬</span>
+          <div class="card-title"><h3>skill-ffmpeg</h3><div class="cn">FFmpeg 音视频处理</div></div>
+          <span class="ver">0.1.1</span>
+        </div>
+        <p class="desc">FFmpeg 音视频处理 —— 转换 / 压缩 / 裁剪 / 提取音频帧。常与 skill-listen 配合（视频先抽音轨再转写）。</p>
+        <div class="tags">
+          <span class="tag lv">服务级</span><span class="tag">FmodeCode</span><span class="tag">音频处理</span><span class="tag">FFmpeg</span><span class="tag">media</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes fmode-ffmpeg@latest extract-audio -- in.mp4</code>
+            <button class="copy" data-copy="npx --yes fmode-ffmpeg@latest extract-audio -- in.mp4">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://www.npmjs.com/package/fmode-ffmpeg" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-storage 对象存储与公开分享 存储 storage OBS CDN share-link upload FmodeCode ClaudeCode 服务级 数据管理">
+        <div class="card-top">
+          <span class="icon">💾</span>
+          <div class="card-title"><h3>skill-storage</h3><div class="cn">对象存储与公开分享</div></div>
+          <span class="ver">0.3.0</span>
+        </div>
+        <p class="desc">对象存储与公开分享 —— 二进制大文件上 OBS，本地零占用，上传即得公开分享链接。诚实 4 级凭据链。</p>
+        <div class="tags">
+          <span class="tag lv">服务级</span><span class="tag">FmodeCode</span><span class="tag">数据管理</span><span class="tag">storage</span><span class="tag">OBS</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>git clone https://git.fmode.cn/fmode/skill-storage.git</code>
+            <button class="copy" data-copy="git clone https://git.fmode.cn/fmode/skill-storage.git">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-storage" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-storage" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="fmode-qiwei 企微网关SDK wecom qiwei sdk gateway messaging FmodeCode ClaudeCode 服务级 平台基础设施">
+        <div class="card-top">
+          <span class="icon">🔌</span>
+          <div class="card-title"><h3>fmode-qiwei</h3><div class="cn">企微网关 SDK</div></div>
+          <span class="ver">0.5.2</span>
+        </div>
+        <p class="desc">企业微信网关 SDK —— 消息收发、通讯录、应用管理封装。与 plugin-wecom-fix 互补（SDK vs 插件补丁）。</p>
+        <div class="tags">
+          <span class="tag lv">服务级</span><span class="tag">FmodeCode</span><span class="tag">平台基础设施</span><span class="tag">qiwei</span><span class="tag">sdk</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes fmode-qiwei@latest workspace</code>
+            <button class="copy" data-copy="npx --yes fmode-qiwei@latest workspace">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://www.npmjs.com/package/fmode-qiwei" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="tier" data-tier="application">
+    <div class="tier-head">
+      <h2>🚀 应用级 · 业务场景 / SOP / 行业</h2>
+      <span class="count">3 个技能</span>
+    </div>
+    <p class="tier-desc">面向具体业务场景的端到端技能。可以依赖服务级，但不应被服务级依赖。</p>
+    <div class="grid">
+
+      <article class="card" data-tags="skill-product-lab 新品研发全案生成器 产品研发 market KANO VOC 新品 FmodeCode ClaudeCode 应用级 新品研发">
+        <div class="card-top">
+          <span class="icon">🔬</span>
+          <div class="card-title"><h3>skill-product-lab</h3><div class="cn">新品研发全案生成器</div></div>
+          <span class="ver">0.2.0</span>
+        </div>
+        <p class="desc">新品研发全案生成器 —— VOC + KANO + 市场 + 竞争 + 定位分析，一句话需求出 HTML 长页方案。</p>
+        <div class="tags">
+          <span class="tag lv">应用级</span><span class="tag">FmodeCode</span><span class="tag">新品研发</span><span class="tag">KANO</span><span class="tag">market</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>npx --yes fmode-product-lab@latest --task "抗氧化软糖"</code>
+            <button class="copy" data-copy='npx --yes fmode-product-lab@latest --task "抗氧化软糖"'>复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://www.npmjs.com/package/fmode-product-lab" target="_blank" rel="noopener">npm</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-study-report 学习复盘报告 学习 report 复盘 ppt html multi-agent FmodeCode ClaudeCode 应用级 学习复盘">
+        <div class="card-top">
+          <span class="icon">📝</span>
+          <div class="card-title"><h3>skill-study-report</h3><div class="cn">学习复盘报告</div></div>
+          <span class="ver">0.1.0</span>
+        </div>
+        <p class="desc">学习复盘报告 —— 48h 多 Agent 采集 + 三问追问 + PPT 级 HTML 报告（≥10 屏），Storage 主 + Gogs 降级双通道发布。</p>
+        <div class="tags">
+          <span class="tag lv">应用级</span><span class="tag">FmodeCode</span><span class="tag">学习复盘</span><span class="tag">report</span><span class="tag">复盘</span>
+        </div>
+        <div class="install">
+          <div class="install-label">安装 / 运行</div>
+          <div class="install-row">
+            <code>git clone https://git.fmode.cn/fmode/skill-study-report.git</code>
+            <button class="copy" data-copy="git clone https://git.fmode.cn/fmode/skill-study-report.git">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <a href="https://git.fmode.cn/fmode/skill-study-report" target="_blank" rel="noopener">Gogs</a>
+          <a href="https://github.com/fmodecn/skill-study-report" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </article>
+
+      <article class="card" data-tags="skill-present HTML演讲系统 演示 presentation slides deck courseware 课件 FmodeCode ClaudeCode 应用级 内容创作">
+        <div class="card-top">
+          <span class="icon">📽️</span>
+          <div class="card-title"><h3>skill-present</h3><div class="cn">HTML 演讲系统</div></div>
+          <span class="ver">私有</span>
+        </div>
+        <p class="desc">HTML 演讲系统 —— 课程课件 / 报告演讲系统，含 43 条 Claude 规则，数字动画与交付物墙 iframe 嵌套。</p>
+        <div class="tags">
+          <span class="tag lv">应用级</span><span class="tag">FmodeCode</span><span class="tag">内容创作</span><span class="tag">slides</span><span class="tag">deck</span>
+        </div>
+        <div class="install">
+          <div class="install-label">分发方式</div>
+          <div class="install-row">
+            <code>私有仓 · 未公开发布（Gogs 内网）</code>
+            <button class="copy" data-copy="私有仓 · 未公开发布（Gogs 内网）">复制</button>
+          </div>
+        </div>
+        <div class="card-links">
+          <span style="color:var(--text-muted)">暂无可公开链接</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <p class="empty" id="empty">没有匹配的技能，换个关键词试试。</p>
+
+  <div class="notice">
+    <strong>版本说明</strong>：卡片上的版本是<strong>安装命令实际交付的版本</strong>——npm 渠道取
+    <code>registry.npmjs.org</code> 最新版，仅仓库分发取仓库 <code>package.json</code>。
+    <br>⚠️ <strong>npm 版本可能落后于仓库 HEAD</strong>（实测 <code>skill-image</code> / <code>skill-vision</code> /
+    <code>skill-listen</code> / <code>skill-product-lab</code> / <code>skill-ffmpeg</code> 均有差异），
+    需要仓库最新代码请用 <code>git clone</code>。
+    <br>📋 元数据规范见 <a href="https://git.fmode.cn/fmode/skill-core-guide/blob/master/SKILL.md" target="_blank" rel="noopener">SKILL.md §3</a>；
+    <code>skill-present</code> 未公开分发，仅列名以保持清单完整性。
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>MIT © 2026 Fmode (未来飞马) · Awesome Fmode Skills</span>
+    <span>
+      <a href="https://git.fmode.cn/fmode/skill-core-guide" target="_blank" rel="noopener">Gogs</a> ·
+      <a href="https://github.com/fmodecn/skill-core-guide" target="_blank" rel="noopener">GitHub</a> ·
+      <a href="https://www.npmjs.com/package/skill-core-guide" target="_blank" rel="noopener">npm</a>
+    </span>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite">已复制</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---------- 复制安装命令 ----------
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 1800);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest ? ev.target.closest('.copy') : null;
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy') || '';
+    var done = function (ok) {
+      if (!ok) { showToast('复制失败，请手动选择命令'); return; }
+      var prev = btn.textContent;
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('done');
+      showToast('安装命令已复制到剪贴板');
+      setTimeout(function () {
+        btn.textContent = prev;
+        btn.classList.remove('done');
+      }, 1600);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
+    } else {
+      done(fallbackCopy(text));
+    }
+  });
+
+  // ---------- 层级筛选 ----------
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section.tier'));
+  var empty = document.getElementById('empty');
+  var input = document.getElementById('q');
+  var activeTier = 'all';
+
+  function apply() {
+    var q = (input.value || '').trim().toLowerCase();
+    var visible = 0;
+
+    sections.forEach(function (sec) {
+      var tierOk = activeTier === 'all' || sec.getAttribute('data-tier') === activeTier;
+      var cards = Array.prototype.slice.call(sec.querySelectorAll('.card'));
+      var shown = 0;
+
+      cards.forEach(function (card) {
+        var hay = ((card.getAttribute('data-tags') || '') + ' ' + card.textContent).toLowerCase();
+        var hit = !q || hay.indexOf(q) !== -1;
+        var show = tierOk && hit;
+        card.style.display = show ? '' : 'none';
+        if (show) shown++;
+      });
+
+      sec.style.display = (tierOk && shown > 0) ? '' : 'none';
+      visible += shown;
+    });
+
+    empty.classList.toggle('show', visible === 0);
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chips.forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      activeTier = chip.getAttribute('data-tier');
+      apply();
+    });
+  });
+
+  var debounce = null;
+  input.addEventListener('input', function () {
+    clearTimeout(debounce);
+    debounce = setTimeout(apply, 120);
+  });
+
+  // ---------- 主题切换 ----------
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme');
+
+  function setTheme(t) {
+    root.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '🌙' : '☀️';
+    try { localStorage.setItem('fmode-skills-theme', t); } catch (e) {}
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('fmode-skills-theme'); } catch (e) {}
+  if (!saved) {
+    saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  setTheme(saved);
+
+  themeBtn.addEventListener('click', function () {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

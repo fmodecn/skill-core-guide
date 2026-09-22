@@ -139,7 +139,7 @@ cp -r skill-core-guide/skills/skill-core-guide <你的工具技能目录>/skill-
 
 ### npm / skillhub
 ```bash
-npm install @fmode/skill-core-guide
+npm install skill-core-guide
 skillhub install fmode-skill-core-guide   # ⚠️ 待 key 补发，见下方渠道现状
 ```
 
