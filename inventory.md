@@ -18,10 +18,17 @@
 
 | 渠道 | 数量 |
 |------|------|
-| Gogs | 10 |
-| GitHub | 11 |
+| Gogs | 11 |
+| GitHub | 12 |
 | npm | 8 |
-| skillhub.cn | 2 |
+| skillhub.cn | 1 |
+
+> ⚠️ **skillhub.cn 渠道现状（2026-09-22 实测）**：企业 key（`sk-ent-...`）调用
+> `POST /api/v1/community/skills/publish` 返回 **401 `invalid or expired token`**，
+> 即 key 已在服务端失效/过期。当前仅 `fmode-skill-heterarchy` 一个 slug 在册。
+> `skill-core-guide` 的打包与 `--dry-run` 预检均已通过
+> （`slug=fmode-skill-core-guide`），**待重新签发 key 后补发**。
+> 补发命令：`skillhub login --key <新KEY> --host https://api.skillhub.cn && skillhub publish . --changelog "首版"`
 
 ---
 
@@ -104,13 +111,14 @@
 
 > **本清单所属的技能**。Fmode Harness 平台技能开发规范母技能。
 
-- **渠道**：Gogs · GitHub · npm · skillhub
+- **渠道**：Gogs · GitHub · npm　（skillhub 待补发，见上方渠道现状）
 - **npm**：`skill-core-guide@1.0.0`
-- **skillhub**：`fmode-skill-core-guide`
+- **skillhub**：`fmode-skill-core-guide`（预检通过，key 失效待补发）
 - **标签**：`meta` `standard` `spec` `harness` `scaffold` `quality-check`
 - **链接**：[Gogs](https://git.fmode.cn/fmode/skill-core-guide) · [GitHub](https://github.com/fmodecn/skill-core-guide) · [npm](https://www.npmjs.com/package/skill-core-guide)
 - **要点**：平台端点真值表（实测状态）、ESM-first 四端标准、四渠道分发、六项自动质检、诚实凭证供给、新技能脚手架。
 - **安装**：`npx --yes skill-core-guide@latest init my-skill --name skill-my-skill`
+- **自检**：六项质检全部通过（含 `--deep` 真 npx 拉取验证）
 
 ---
 
@@ -237,17 +245,17 @@
 
 ## 四、按渠道索引
 
-### Gogs（`git.fmode.cn/fmode/`）— 10 个
+### Gogs（`git.fmode.cn/fmode/`）— 11 个
 `skill-heterarchy` · `skill-multi-branch` · `skill-bypass-permission` · `skill-task-progress` · `plugin-wecom-fix` · `skill-agent-clone` · `skill-core-guide` · `skill-storage` · `skill-listen` · `skill-study-report` · `skill-present`
 
-### GitHub（`github.com/fmodecn/`）— 11 个
+### GitHub（`github.com/fmodecn/`）— 12 个
 `skill-heterarchy` · `skill-multi-branch` · `skill-bypass-permission` · `skill-task-progress` · `plugin-wecom-fix` · `skill-agent-clone` · `skill-core-guide` · `skill-storage` · `skill-image` · `skill-vision` · `skill-listen` · `skill-study-report`
 
 ### npm — 8 个
 `skill-heterarchy` · `skill-core-guide` · `fmode-image` · `fmode-vision` · `fmode-listen` · `fmode-ffmpeg` · `fmode-qiwei` · `fmode-product-lab`
 
-### skillhub.cn — 2 个
-`fmode-skill-heterarchy` · `fmode-skill-core-guide`
+### skillhub.cn — 1 个
+`fmode-skill-heterarchy`　（`fmode-skill-core-guide` 预检通过待补发）
 
 ---
 

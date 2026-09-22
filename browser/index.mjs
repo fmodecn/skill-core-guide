@@ -309,10 +309,10 @@ export async function runBrowserChecks(opts = {}) {
 
 /** 供浏览器端展示的技能清单摘要（不依赖 Node） */
 export const INVENTORY_SUMMARY = {
-  total: 17,
+  total: 16,
   byTier: { system: 7, service: 6, application: 3 },
-  byPlatform: { gogs: 10, github: 11, npm: 8, skillhub: 2 },
-  note: '完整清单见仓库 inventory.md 或 lib/inventory.mjs',
+  byPlatform: { gogs: 11, github: 12, npm: 8, skillhub: 1 },
+  note: '完整清单见仓库 inventory.md 或 lib/inventory.mjs；skillhub 渠道企业 key 失效待补发',
 };
 
 export default {

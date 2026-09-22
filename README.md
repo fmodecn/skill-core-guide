@@ -140,14 +140,18 @@ cp -r skill-core-guide/skills/skill-core-guide <你的工具技能目录>/skill-
 ### npm / skillhub
 ```bash
 npm install skill-core-guide
-skillhub install fmode-skill-core-guide
+skillhub install fmode-skill-core-guide   # ⚠️ 待 key 补发，见下方渠道现状
 ```
+
+> ⚠️ **skillhub.cn 渠道现状（2026-09-22 实测）**：企业 key（`sk-ent-...`）调用发布接口
+> 返回 **401 `invalid or expired token`**。本技能的打包与 `--dry-run` 预检均已通过
+> （`slug=fmode-skill-core-guide`），**待重新签发 key 后补发**。
 
 ---
 
 ## 技能清单
 
-完整清单（17 个技能，含标签、版本、渠道、状态）见 **[`inventory.md`](inventory.md)**。
+完整清单（16 个技能，含标签、版本、渠道、状态）见 **[`inventory.md`](inventory.md)**。
 
 ```bash
 npx --yes skill-core-guide@latest inventory
@@ -158,6 +162,19 @@ npx --yes skill-core-guide@latest inventory
 | **系统层**（7） | `skill-heterarchy` · `skill-multi-branch` · `skill-bypass-permission` · `skill-task-progress` · `plugin-wecom-fix` · `skill-agent-clone` · `skill-core-guide` |
 | **服务层**（6） | `skill-storage` · `skill-image` · `skill-vision` · `skill-listen` · `fmode-ffmpeg` · `fmode-qiwei` |
 | **应用层**（3） | `skill-study-report` · `skill-present` · `fmode-product-lab` |
+
+---
+
+## 交付状态（2026-09-22 实测）
+
+| 渠道 | 状态 | 验证方式 |
+|------|------|----------|
+| Gogs | ✅ 已发布 | `git.fmode.cn/api/v1/repos/search?q=skill-core-guide` → 200 |
+| GitHub | ✅ 已发布 | `api.github.com/repos/fmodecn/skill-core-guide` → 13 项内容 |
+| npm | ✅ 已发布 | `npm view skill-core-guide version` → `1.0.0` |
+| skillhub.cn | ⚠️ **受阻** | 企业 key 服务端 401 `invalid or expired token`（预检已通过，待补发） |
+
+六项自动质检：**6 通过 / 0 失败 / 0 未验证**（含 `--deep` 真实 `npx` 拉取验证）。
 
 ---
 
