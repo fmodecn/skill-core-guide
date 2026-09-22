@@ -1,7 +1,7 @@
 ---
 slug: fmode-skill-core-guide
 displayName: skill-core-guide
-version: 1.0.0
+version: 1.0.1
 summary: Fmode Harness 平台母技能标准指南 —— 平台端点真值表、ESM-first 四端标准、四渠道分发、六项自动质检、一键凭证供给、新技能脚手架。
 license: MIT
 author: Yuyang001 (FmodeAgent)

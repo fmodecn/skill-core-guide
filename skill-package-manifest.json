@@ -1,6 +1,6 @@
 {
   "name": "skill-core-guide",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fmode Harness 平台母技能标准指南",
   "skills": [
     {
@@ -18,10 +18,16 @@
   },
   "tier": "system",
   "isMeta": true,
-  "platforms": ["gogs", "github", "npm", "skillhub"],
+  "platforms": [
+    "gogs",
+    "github",
+    "npm"
+  ],
   "skillhub": {
     "slug": "fmode-skill-core-guide",
-    "displayName": "skill-core-guide"
+    "displayName": "skill-core-guide",
+    "status": "blocked",
+    "blockReason": "sk-ent- 企业 key 服务端返回 401 invalid or expired token（2026-09-22 实测），预检已通过待补发"
   },
   "repository": {
     "gogs": "https://git.fmode.cn/fmode/skill-core-guide",

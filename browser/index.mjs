@@ -25,7 +25,7 @@
 // 平台常量（内联，保持浏览器 bundle 零依赖、可独立分发）
 // ============================================================
 
-export const VERSION = '1.0.0';
+export const VERSION = '1.0.1';
 export const SKILL_NAME = 'skill-core-guide';
 
 export const PLATFORM = {

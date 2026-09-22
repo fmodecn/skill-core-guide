@@ -1,7 +1,7 @@
 ---
 name: skill-core-guide
 description: "Fmode Harness 平台母技能标准指南。当你要（1）开发新技能、（2）检查技能质量、（3）发布技能到 Gogs/GitHub/npm/skillhub、（4）查平台端点是否可用、（5）配置 Fmode 凭据、（6）了解技能生态现状时使用本技能。它是 Fmode 技能生态的宪法：定义平台真值表、ESM-first 四端标准、四渠道分发、六项自动质检、诚实凭证供给。"
-version: 1.0.0
+version: 1.0.1
 author: Yuyang001 (FmodeAgent)
 license: MIT
 tags: [meta, standard, spec, harness, scaffold, quality-check, fmode, esm]
