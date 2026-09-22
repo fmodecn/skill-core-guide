@@ -1,0 +1,43 @@
+{
+  "name": "__SKILL_NAME__",
+  "version": "0.1.0",
+  "description": "__SUMMARY__",
+  "type": "module",
+  "main": "./lib/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "default": "./lib/index.mjs"
+    }
+  },
+  "bin": {
+    "__CLI_NAME__": "./bin/__CLI_NAME__.mjs"
+  },
+  "files": [
+    "lib/",
+    "bin/",
+    "browser/",
+    "skills/",
+    "README.md",
+    "LICENSE",
+    "skill-package-manifest.json"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node test/smoke.mjs"
+  },
+  "keywords": [
+    "fmode",
+    "skill",
+    "__CLI_NAME__"
+  ],
+  "author": "Yuyang001 (FmodeAgent)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fmodecn/__SKILL_NAME__.git"
+  },
+  "dependencies": {}
+}

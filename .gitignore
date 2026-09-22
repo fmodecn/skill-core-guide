@@ -1,0 +1,4 @@
+node_modules/
+*.log
+.sts-probe.json
+.DS_Store

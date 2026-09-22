@@ -1,0 +1,28 @@
+{
+  "name": "__SKILL_NAME__",
+  "version": "0.1.0",
+  "description": "__SUMMARY__",
+  "skills": [
+    {
+      "name": "__SKILL_NAME__",
+      "path": "skills/__SKILL_NAME__/SKILL.md"
+    }
+  ],
+  "install": "npx --yes __SKILL_NAME__@latest workspace",
+  "cli": {
+    "__CLI_NAME__": "./bin/__CLI_NAME__.mjs"
+  },
+  "entry": {
+    "sdk": "./lib/index.mjs"
+  },
+  "tier": "service",
+  "platforms": ["gogs", "github", "npm", "skillhub"],
+  "skillhub": {
+    "slug": "fmode-__SKILL_NAME__",
+    "displayName": "__SKILL_NAME__"
+  },
+  "repository": {
+    "gogs": "https://git.fmode.cn/fmode/__SKILL_NAME__",
+    "github": "https://github.com/fmodecn/__SKILL_NAME__"
+  }
+}

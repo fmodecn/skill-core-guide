@@ -1,0 +1,81 @@
+{
+  "name": "skill-core-guide",
+  "version": "1.0.0",
+  "description": "Fmode Harness 平台母技能标准指南：平台端点真值表、ESM-first 四端标准、四渠道分发、六项自动质检、一键凭证供给、新技能脚手架。",
+  "type": "module",
+  "main": "./lib/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "default": "./lib/index.mjs"
+    },
+    "./browser": {
+      "import": "./browser/index.mjs",
+      "default": "./browser/index.mjs"
+    },
+    "./platform": {
+      "import": "./lib/platform.mjs",
+      "default": "./lib/platform.mjs"
+    },
+    "./check": {
+      "import": "./lib/check.mjs",
+      "default": "./lib/check.mjs"
+    },
+    "./bootstrap": {
+      "import": "./lib/bootstrap.mjs",
+      "default": "./lib/bootstrap.mjs"
+    },
+    "./inventory": {
+      "import": "./lib/inventory.mjs",
+      "default": "./lib/inventory.mjs"
+    }
+  },
+  "bin": {
+    "skill-core": "./bin/skill-core.mjs",
+    "skill-core-guide": "./bin/skill-core.mjs"
+  },
+  "files": [
+    "lib/",
+    "bin/",
+    "browser/",
+    "templates/",
+    "skills/",
+    "SKILL.md",
+    "inventory.md",
+    "README.md",
+    "LICENSE",
+    "skill-package-manifest.json"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node test/smoke.mjs",
+    "check": "node bin/skill-core.mjs check . --offline",
+    "verify": "node bin/skill-core.mjs verify .",
+    "inventory": "node bin/skill-core.mjs inventory"
+  },
+  "keywords": [
+    "fmode",
+    "harness",
+    "skill",
+    "standard",
+    "spec",
+    "esm",
+    "scaffold",
+    "quality-check",
+    "meta",
+    "skillhub"
+  ],
+  "author": "Yuyang001 (FmodeAgent)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fmodecn/skill-core-guide.git"
+  },
+  "homepage": "https://github.com/fmodecn/skill-core-guide#readme",
+  "bugs": {
+    "url": "https://github.com/fmodecn/skill-core-guide/issues"
+  },
+  "dependencies": {}
+}

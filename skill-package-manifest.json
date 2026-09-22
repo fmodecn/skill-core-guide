@@ -1,0 +1,38 @@
+{
+  "name": "skill-core-guide",
+  "version": "1.0.0",
+  "description": "Fmode Harness 平台母技能标准指南",
+  "skills": [
+    {
+      "name": "skill-core-guide",
+      "path": "skills/skill-core-guide/SKILL.md"
+    }
+  ],
+  "install": "npx --yes skill-core-guide@latest workspace",
+  "cli": {
+    "skill-core": "./bin/skill-core.mjs"
+  },
+  "entry": {
+    "sdk": "./lib/index.mjs",
+    "browser": "./browser/index.mjs"
+  },
+  "tier": "system",
+  "isMeta": true,
+  "platforms": ["gogs", "github", "npm", "skillhub"],
+  "skillhub": {
+    "slug": "fmode-skill-core-guide",
+    "displayName": "skill-core-guide"
+  },
+  "repository": {
+    "gogs": "https://git.fmode.cn/fmode/skill-core-guide",
+    "github": "https://github.com/fmodecn/skill-core-guide"
+  },
+  "contents": {
+    "spec": "SKILL.md",
+    "inventory": "inventory.md",
+    "scaffold": "templates/skill-starter",
+    "qualityEngine": "lib/check.mjs",
+    "credentialBootstrap": "lib/bootstrap.mjs",
+    "endpointTruthTable": "lib/platform.mjs"
+  }
+}
