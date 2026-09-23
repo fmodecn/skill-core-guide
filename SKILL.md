@@ -321,6 +321,144 @@ Agent 的技能选择、看板页面的渲染，全部读同一份字段。字�
 > （见 `lib/inventory.mjs` 的 `TIERS`）。
 
 ### 3.3 SEO 优化原则（用于 skillhub.cn 等平台搜索排名）
+### 3.4 GEO/SEO/品牌/开源协议综合规范（v1.0）
+
+> 参考：fmode-studio website（站点地图/sitemap/llms.txt/Open Graph/Schema.org）、
+> MPL-2.0 协议规范、ESM 超级技能打包标准
+
+#### 3.4.1 README 标准结构（每个技能仓库必须遵守）
+
+```
+1. 项目标题 & 品牌 Slogan
+   「未来飞马 — 让AI进化提前发生，让AI落地快人一步」
+2. 简介：技能是什么；超级技能（ESM）特性说明
+3. 核心定位：能力边界与相似技能区分
+4. 核心能力 & 交付物说明
+5. 理论背景（若有）/ 技术原理
+6. 快速开始（ESM 代码示例，浏览器+Node 两种极简示例）
+7. FAQ（SEO 关键词埋点：技术、开源协议、业务问题三块）
+8. GEO 埋点说明（非强制采集，默认关闭，隐私声明）
+9. License & Trademark Notice（MPL-2.0 协议 + 商标声明）
+10. 贡献指南
+11. 相关项目：Harness Loop、RSI、Hermes
+```
+
+#### 3.4.2 HTML 元数据标准（skillhub/网站发布用）
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="未来飞马技能：...">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://git.fmode.cn/fmode/skill-xxx">
+<meta property="og:title" content="skill-xxx —— 未来飞马">
+<meta property="og:description" content="...">
+<meta property="og:image" content="https://app.fmode.cn/logo/feima.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="未来飞马 Fmode">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+```
+
+#### 3.4.3 package.json SEO 关键词规范
+
+keywords 数组必须涵盖英文+中文术语。通用模板（各技能按自身特点增减）：
+
+```json
+"keywords": [
+  "fmode", "hermes", "harness-loop", "rsi",
+  "ai-agent", "agent-skill", "super-skill",
+  "esm", "未来飞马", "智能体技能",
+  "harness", "<技能特有英文关键词>", "<技能特有中文关键词>"
+]
+```
+
+#### 3.4.4 开源协议规范
+
+**强制使用 MPL-2.0**（Mozilla Public License 2.0），唯一例外：已发布的 MIT 技能保持 MIT。
+
+- `LICENSE` 文件放 MPL-2.0 完整原文
+- `package.json` 设 `"license": "MPL-2.0"`
+- 每个 ESM 源文件头部加版权+商标注释模板（见 §3.4.5）
+- README 设独立 `## License` 和 `## Trademark Notice` 小节
+
+#### 3.4.5 源码头部注释模板
+
+```javascript
+// Copyright (c) 未来飞马
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+// Trademark Notice:
+// The MPL-2.0 license grants copyright permissions for source code only.
+// It does NOT grant any rights to use trademarks including "未来飞马",
+// "Harness Loop", "RSI", and associated slogan "让AI进化提前发生，让AI落地快人一步".
+// Any use of these trademarks requires separate written permission.
+```
+
+#### 3.4.6 GEO 埋点规范（GEO Tracking）
+
+- 默认关闭（`geoTracking: false`）；用户显式开启才上报
+- 只采集地区级别信息（国家/大区），不采集城市、IP、设备ID、经纬度
+- 埋点逻辑独立模块，可单独移除
+- README/FAQ 必须说明用途+隐私声明
+- 上报失败不阻塞主技能逻辑
+
+#### 3.4.7 站点地图与 LLM 友好
+
+每个 repo 根目录可放置：
+- `llms.txt` —— 描述技能仓库结构，帮助 AI 快速理解
+- GitHub About 字段填写简介 + 关键词 SEO 埋点
+
+#### 3.4.8 商标声明（固定文案，所有仓库复用）
+
+> MPL-2.0 governs copyright for source code only.
+> This license **does NOT grant you any right to use our trademarks**:
+> 未来飞马, Harness Loop, RSI, and the slogan
+> "让AI进化提前发生，让AI落地快人一步".
+>
+> You may not use these trademarks in your product name, marketing,
+> documentation, or public promotion unless you obtain separate written
+> permission from 未来飞马.
+
+---
+
+### 3.5 发布前综合检查清单（13项）
+
+每个技能仓库发布前必须逐项检查：
+
+```
+□ 1. LICENSE 文件：MPL-2.0 原文（已发布 MIT 的保持 MIT）
+□ 2. README 完整结构：品牌+简介+定位+快速开始+FAQ+GEO+许可+商标
+□ 3. README 首行/简介中固定品牌 Slogan
+□ 4. 每个源文件头部已加版权+商标注释模板
+□ 5. package.json: type=module, license=MPL-2.0, keywords 含英+中
+□ 6. package.json exports 配好 ESM 多端兼容
+□ 7. FAQ 三块：技术概念 + MPL-2.0 协议 + 业务用户搜索
+□ 8. 元数据（skill manifest / SKILL.md frontmatter）：copyright、tags 含品牌词
+□ 9. Open Graph 元数据（skillhub/GitHub 发布用）
+□ 10. GEO 埋点：默认关闭、隐私声明、不阻塞
+□ 11. 商标声明独立存在（不暗示 MPL 授予商标权）
+□ 12. ESM 示例代码：浏览器原生 import + Node.js 双端验证
+□ 13. HTML/markdown 中没有硬编码竞争对手/不相关品牌名
+
+检查项分布对应到已有六项质检的哪个 slot（v2 升级时合并）
+```
+
+---
+
+### 3.6 SEO 关键词总表（所有技能文档复用）
+
+**英文**
+`fmode, hermes, harness-loop, rsi, ai-agent, agent-skill, super-skill, esm, cognitive-collaboration, deliverables, large-language-model, agent-orchestration, future-feima`
+
+**中文**
+`未来飞马，Harness Loop，RSI，Hermes智能体，智能体技能，超级技能，内异层协同，AI心智协同，任务委派，AI交付物，大模型编排，AI工作流，ESM，驾驭工程`
+
 
 平台搜索按「标题 / summary 命中 + 标签匹配 + 更新活跃度」排序。四条硬规则：
 
@@ -604,7 +742,26 @@ curl -X POST -H "Authorization: Bearer $GH_TOKEN" \
 
 ## 六、自动质检与看板机制
 
-### 6.1 六项检查
+### 6.1 十三项检查（v2 升级 · GEO/品牌/许可）
+
+> 在原六项检查基础上，集成了 §3.4 的 GEO/SEO/品牌/许可规范检查，
+> 形成发布前 13 项完全上架检查清单：
+
+| # | 检查项 | key | 说明 |
+|---|--------|-----|------|
+| 1 | **npm 发布可达** | `npmPublishable` | `npm pack --dry-run` 通过，`package.json` 元数据完整 |
+| 2 | **Fmode API 联通** | `apiConnectivity` | 探测 `api.fmode.cn` 与 `server.fmode.cn`（401=端点存在） |
+| 3 | **LICENSE 文件** | `licenseFile` | MPL-2.0 原文（已发布 MIT 技能保持 MIT） |
+| 4 | **源文件注释** | `sourceHeader` | 每个 ESM 源文件已有版权+商标注释模板 |
+| 5 | **README 完整** | `readmeComplete` | 结构包含：品牌+简介+QuickStart双端+GEO+FAQ+许可+商标 |
+| 6 | **package.json ESM** | `esmPackage` | `type:module` + `exports` 多端 + `keywords` 中英文 |
+| 7 | **FAQ 三块齐全** | `faqComplete` | 技术概念 + MPL 协议 + 业务搜索各至少 3 条 |
+| 8 | **元数据（skill manifest）** | `skillManifest` | frontmatter 含 copyright + tags 含品牌词 |
+| 9 | **Open Graph 元数据** | `openGraph` | OG:title/desc/image/site_name/url |
+| 10 | **SEO 关键词** | `seoKeywords` | README、GitHub About、npm keywords 统一 |
+| 11 | **GEO 埋点规范** | `geoTracking` | 默认关闭 + 隐私声明 + 不阻塞主逻辑 |
+| 12 | **商标声明** | `trademarkNotice` | README 有独立 `## Trademark Notice` 小节 |
+| 13 | **ESM 示例双端** | `esmExamples` | README 有浏览器 + Node.js 两套示例代码 |
 
 技能开发完成后**必须**跑六项质检。用 `skill-core check .` 一键执行。
 
