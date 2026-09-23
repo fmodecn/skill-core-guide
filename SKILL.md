@@ -1,7 +1,7 @@
 ---
 slug: fmode-skill-core-guide
 displayName: skill-core-guide
-version: 1.0.3
+version: 1.0.5
 summary: Fmode Harness 平台母技能标准指南 —— 平台端点真值表、ESM-first 四端标准、元数据规范、四渠道分发、六项自动质检、一键凭证供给、新技能脚手架。
 description: "Fmode 技能生态的宪法级规范文档。定义平台端点真值表（live/planned/deprecated 三态）、ESM-first 四端等价打包标准、元数据与标签规范、Gogs/GitHub/npm/skillhub 四渠道分发、六项自动质检（skip≠pass）、5 级诚实凭据链与新技能脚手架。读它不需要先读任何别的文档。The constitution of the Fmode skill ecosystem — platform endpoint truth table, ESM-first packaging standard, metadata spec, four-channel distribution, six-point quality gate."
 platform: HermesAgent
@@ -684,6 +684,23 @@ skill-core check . --allow-skip                 # 有 skip 也返回 0（慎用�
 ---
 
 ## 七、一键凭证供给机制
+
+### 7.0 运行身份与凭据自举铁则（Agent Identity & Credential Bootstrapping）
+
+> **所有需要鉴权的平台调用（云函数 / API / OBS / 上报）在动手前，必须先高兼容解析两件事**：
+
+**① 我是谁（agentId）** —— 语义名 `agent-node` 等，**绝不回退到 docker hostname**（容器重启后 hash 会变）。
+解析链：`FMODE_AGENT_ID` > `AGENT_ID` > `~/.fmode/config.json` > `<cwd>/.fmode/config.json`。
+
+**② 我凭什么（sessionToken）** —— 只控制 ACL，不告知「是谁干活」。解析链：
+`FMODE_SESSION_TOKEN`（env）> `~/.fmode/config.json` > `~/.fmode/config/user.json` > `<cwd>/.fmode`。
+**坑**：HM 容器常不把 sessionToken 写入 env，技能必须主动读配置文件兜底。
+
+**全链枯竭兜底**：触发验证码登录重新初始化（端点未上线则打向导，**绝不伪造 token 假装成功**）。
+
+> 完整规范见 [`docs/agent-identity-bootstrap.md`](docs/agent-identity-bootstrap.md)。
+> 事故背景：交付物上报静默失效 —— 容器重建后 agentId 变 hostname、sessionToken 未进 env，双缺失导致
+> `404 agent not found` / `403 only owner or superadmin can report`。
 
 ### 7.1 诚实声明（先读这段）
 
